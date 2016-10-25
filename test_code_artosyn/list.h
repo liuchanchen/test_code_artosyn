@@ -62,6 +62,16 @@ struct list_struct_name\
 	(list)->list_elem_num --;\
 }while(0)
 
+//delete from rear
+#define list_del_elem(list, elem) do\
+{\
+	(elem)->last->next = (elem)->next;\
+	(elem)->next->last = (elem)->last;\
+	(elem)->last = NULL;\
+	(elem)->next = NULL;\
+	(list)->list_elem_num --;\
+}while(0)
+
 #define get_list_elem_head(list, elem) do\
 {\
 	(elem) = (list)->front.next;\

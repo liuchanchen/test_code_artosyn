@@ -30,6 +30,9 @@
     <ClCompile Include="list.c">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="core_pipe.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="malloc_list.h">
@@ -42,6 +45,9 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="list.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="core_pipe.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

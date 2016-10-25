@@ -110,6 +110,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="core_pipe.c" />
     <ClCompile Include="function_call.c" />
     <ClCompile Include="list.c" />
     <ClCompile Include="main.c" />
@@ -117,6 +118,7 @@
     <ClCompile Include="task_pool.c" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="core_pipe.h" />
     <ClInclude Include="function_call.h" />
     <ClInclude Include="list.h" />
     <ClInclude Include="malloc_list.h" />
