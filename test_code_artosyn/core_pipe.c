@@ -229,6 +229,8 @@ int core_pipe_uninit(int fd)
 		core_pipe_node = core_pipe_node->next;
 	}
 	list_del_elem(&core_pipe_list, core_pipe_node);
+	free(core_pipe_node->elem.buf);
+	core_pipe_node->elem.buf = NULL;
 	free(core_pipe_node);
 	core_pipe_node = NULL;
 
