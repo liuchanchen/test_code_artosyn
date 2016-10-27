@@ -13,7 +13,7 @@ typedef struct elem_struct
 typedef node_define(core_pipe_node_struct, elem_str) core_pipe_node_type;
 typedef list_node_define(core_pipe_list_struct, core_pipe_node_struct) core_pipe_list_type;
 
-extern int g_mutex[];
+extern int g_pipe_mutex[];
 
 extern int core_pipe_init();
 extern int core_pipe();
