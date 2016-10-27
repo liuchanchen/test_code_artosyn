@@ -117,6 +117,7 @@
     <ClCompile Include="main.c" />
     <ClCompile Include="malloc_list.c" />
     <ClCompile Include="task_pool.c" />
+    <ClCompile Include="test_noload.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="core_mutex.h" />
@@ -125,6 +126,7 @@
     <ClInclude Include="list.h" />
     <ClInclude Include="malloc_list.h" />
     <ClInclude Include="task_pool.h" />
+    <ClInclude Include="test_noload.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
