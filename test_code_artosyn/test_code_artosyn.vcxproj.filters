@@ -39,6 +39,9 @@
     <ClCompile Include="test_noload.c">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="test_colon_in_c_language.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="malloc_list.h">
@@ -60,6 +63,9 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="test_noload.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="test_colon_in_c_language.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
