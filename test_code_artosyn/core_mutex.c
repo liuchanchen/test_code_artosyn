@@ -1,6 +1,7 @@
 #include "core_mutex.h"
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 
 //添加多核的进程间通讯方式(模仿POSIX中互斥锁的api形式)
 //在阻塞过程中一定要添加关闭调度器的代码，目前还没有添加，待添加（16.10.29）

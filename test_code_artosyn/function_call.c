@@ -11,7 +11,7 @@ void task_function(void * param)
 
 void call_function_frame(void * st_task_func)
 {
-	return 0;
+	return ;
 }
 
 int test_function_call()

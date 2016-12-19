@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
       <Configuration>Debug</Configuration>
@@ -33,20 +33,20 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v140</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v140</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v140</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
@@ -110,23 +110,29 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="algothrim_midware.c" />
     <ClCompile Include="core_mutex.c" />
     <ClCompile Include="core_pipe.c" />
     <ClCompile Include="function_call.c" />
     <ClCompile Include="list.c" />
     <ClCompile Include="main.c" />
     <ClCompile Include="malloc_list.c" />
+    <ClCompile Include="mcci_driver.c" />
     <ClCompile Include="task_pool.c" />
+    <ClCompile Include="test_case.c" />
     <ClCompile Include="test_colon_in_c_language.c" />
     <ClCompile Include="test_noload.c" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="algothrim_midware.h" />
     <ClInclude Include="core_mutex.h" />
     <ClInclude Include="core_pipe.h" />
     <ClInclude Include="function_call.h" />
     <ClInclude Include="list.h" />
     <ClInclude Include="malloc_list.h" />
+    <ClInclude Include="mcci_driver.h" />
     <ClInclude Include="task_pool.h" />
+    <ClInclude Include="test_case.h" />
     <ClInclude Include="test_colon_in_c_language.h" />
     <ClInclude Include="test_noload.h" />
   </ItemGroup>

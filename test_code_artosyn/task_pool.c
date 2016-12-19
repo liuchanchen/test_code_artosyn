@@ -1,5 +1,7 @@
 #include "task_pool.h"
 #include "function_call.h"
+#include <string.h>
+#include <stdio.h>
 
 function_node_type template_function[TEMPLATE_FUNC_TOTAL_NUM];
 function_list_type template_function_list;
