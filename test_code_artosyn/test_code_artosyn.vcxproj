@@ -40,7 +40,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v140</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
@@ -114,6 +114,7 @@
     <ClCompile Include="core_mutex.c" />
     <ClCompile Include="core_pipe.c" />
     <ClCompile Include="function_call.c" />
+    <ClCompile Include="high_efficiency_allocate.c" />
     <ClCompile Include="list.c" />
     <ClCompile Include="main.c" />
     <ClCompile Include="malloc_list.c" />
@@ -128,6 +129,7 @@
     <ClInclude Include="core_mutex.h" />
     <ClInclude Include="core_pipe.h" />
     <ClInclude Include="function_call.h" />
+    <ClInclude Include="high_effiency_allocate.h" />
     <ClInclude Include="list.h" />
     <ClInclude Include="malloc_list.h" />
     <ClInclude Include="mcci_driver.h" />
