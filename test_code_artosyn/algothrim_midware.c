@@ -10,7 +10,6 @@ static int alg_task_num = 0;
 
 static int send_task_to_another_core(TaskFunction_t algothrim_task_code, TaskHande_t task_handle);
 
-
 int alg_task_create(TaskFunction_t algothrim_task_code, TaskHande_t task_handle)
 {
 	int core_id = 0;

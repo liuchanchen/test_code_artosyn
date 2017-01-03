@@ -51,6 +51,12 @@
     <ClCompile Include="test_case.c">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="heap_midware.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="heap_intergrate.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="malloc_list.h">
@@ -84,6 +90,9 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="test_case.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="heap_midware.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

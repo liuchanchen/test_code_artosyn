@@ -68,7 +68,9 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <IncludePath>D:\download\FreeRTOSv9.0.0\FreeRTOS\Source\include;$(IncludePath)</IncludePath>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -114,6 +116,8 @@
     <ClCompile Include="core_mutex.c" />
     <ClCompile Include="core_pipe.c" />
     <ClCompile Include="function_call.c" />
+    <ClCompile Include="heap_intergrate.c" />
+    <ClCompile Include="heap_midware.c" />
     <ClCompile Include="list.c" />
     <ClCompile Include="main.c" />
     <ClCompile Include="malloc_list.c" />
@@ -128,6 +132,7 @@
     <ClInclude Include="core_mutex.h" />
     <ClInclude Include="core_pipe.h" />
     <ClInclude Include="function_call.h" />
+    <ClInclude Include="heap_midware.h" />
     <ClInclude Include="list.h" />
     <ClInclude Include="malloc_list.h" />
     <ClInclude Include="mcci_driver.h" />
