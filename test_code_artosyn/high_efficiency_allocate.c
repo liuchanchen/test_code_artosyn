@@ -6,6 +6,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <math.h>
 
 typedef struct list_mem_t
 {
@@ -25,24 +26,32 @@ typedef struct
 	void * ptr;
 }data_st;
 
-#define HEAP_LEN 0x8000
+#define HEAP_LEN 0x100000
 #define FREE_BLOCK_MIN 8
 #define FREE_BLOCK_MAX 32 * 1024 * 1024
 #define FREE_BLOCK_ENTRY_NUM 16
 
 static unsigned char heap[HEAP_LEN];
-static unsigned int free_block_table[FREE_BLOCK_ENTRY_NUM] =
-{FREE_BLOCK_MIN, 32, 64, 128, 512, 1024, 4 *1024, 16 * 1024, 32 * 1024, 128 * 1024, 
-64 * 1024, 512 * 1024, 1024 * 1024, 4 * 1024 * 1024, 8 * 1024 * 1024, FREE_BLOCK_ENTRY_NUM};
+static const unsigned long long free_block_table[FREE_BLOCK_ENTRY_NUM] =
+{FREE_BLOCK_MIN, 32, 64, 128, 512, 1024, 4 *1024, 16 * 1024, 32 * 1024, 64 * 1024,
+128 * 1024, 512 * 1024, 1024 * 1024, 4 * 1024 * 1024, 8 * 1024 * 1024, FREE_BLOCK_MAX};
 static 	list_st free_block_list[FREE_BLOCK_ENTRY_NUM];
 static int cur_free_ptr = 0;
+static const int free_block_entry_half_num = (FREE_BLOCK_ENTRY_NUM - 1) >> 1;
+static const int free_block_entry_one_quarter_num = (FREE_BLOCK_ENTRY_NUM - 1) >> 2;
+static const int free_block_entry_three_quarter_num = ((FREE_BLOCK_ENTRY_NUM - 1) >> 2) + ((FREE_BLOCK_ENTRY_NUM - 1) >> 1);
+static unsigned long long free_block_value_of_half_position = 0;
+static unsigned long long free_block_value_of_one_quarter_position = 0;
+static unsigned long long free_block_value_of_three_quarter_position = 0;
+//static float free_block_max_log = (int)(log(FREE_BLOCK_MAX) / log(2));
+//static float free_block_min_log = (int)(log(FREE_BLOCK_MIN) / log(2));
 
 static unsigned int RoundUpToPowerOf2(unsigned int x);
-static int get_approximated_size(const unsigned int wanted_size, unsigned* table_index);
-static int list_init(list_st * list);
+static unsigned long long get_approximated_size(const unsigned long long wanted_size, unsigned* table_index);
 static int list_init(list_st * list);
 static int list_insert(list_mem_st * list_mem, list_st * list);
 static int get_list_elem_head(list_mem_st ** list_mem, list_st * list);
+
 
 int high_effiency_test_case()
 {
@@ -53,7 +62,7 @@ int high_effiency_test_case()
 	int i = 0;
 	int * allocate_ptr = NULL;
 
-	printf("RoundUpToPowerOf2:%d,%d\n", get_approximated_size(70 * 1024, &index), index);
+	//printf("RoundUpToPowerOf2:%d,%d\n", get_approximated_size(70 * 1024, &index), index);
 	list_init(&list);
 	for (i = 0;i < 8;i++)
 	{
@@ -63,32 +72,34 @@ int high_effiency_test_case()
 	tmp_list_mem = list.head.after;
 	for (i = 0;i < 8;i++)
 	{
-		printf("list value:%d,%d\n", tmp_list_mem->value, list.list_count);
+	//	printf("list value:%d,%d\n", tmp_list_mem->value, list.list_count);
 		tmp_list_mem = tmp_list_mem->after;
 	}
 	get_list_elem_head(&tmp_list_mem, &list);
-	printf("after del:%d,%d\n", tmp_list_mem->value,list.list_count);
+	//printf("after del:%d,%d\n", tmp_list_mem->value,list.list_count);
 	high_effiency_allocate_init();
 	allocate_ptr = (int *)high_effiency_allocate(45 * sizeof(int));
 	*allocate_ptr = 32;
-	printf("cur_free_ptr:%d,%p,heap:%p,value:%d\n", cur_free_ptr, allocate_ptr, heap, *allocate_ptr);
-	printf("size:%d\n", *(allocate_ptr - sizeof(int)));
+	//printf("cur_free_ptr:%d,%p,heap:%p,value:%d\n", cur_free_ptr, allocate_ptr, heap, *allocate_ptr);
+	//printf("size:%d\n", *(allocate_ptr - sizeof(int)));
 	allocate_ptr = NULL;
-	allocate_ptr = (int *)high_effiency_allocate(45 * sizeof(int));
+	allocate_ptr = (int *)high_effiency_allocate(45 * sizeof(int) * 1024);
 	*allocate_ptr = 48;
-	printf("cur_free_ptr:%d,%p,heap:%p,value:%d\n", cur_free_ptr, allocate_ptr, heap, *allocate_ptr);
+	//printf("cur_free_ptr:%d,%p,heap:%p,value:%d\n", cur_free_ptr, allocate_ptr, heap, *allocate_ptr);
 	high_effiency_free(allocate_ptr);
 	allocate_ptr = NULL;
-#if 0
+#if 1
 	allocate_ptr = (int *)high_effiency_allocate(45 * sizeof(int));
 	*allocate_ptr = 48;
 #endif
 //	printf("cur_free_ptr:%d,%p,heap:%p,value:%d\n", cur_free_ptr, allocate_ptr, heap, *allocate_ptr);
-	printf("free list num:\n");
+//	printf("free list num:\n");
+#if 0
 	for (i = 0;i < FREE_BLOCK_ENTRY_NUM;i++)
 	{
 		printf("entry id:%d, list num:%d\n", i, free_block_list[i].list_count);
 	}
+#endif
 
 	return 0;
 }
@@ -97,6 +108,9 @@ int high_effiency_allocate_init()
 {
 	int i = 0;
 
+	free_block_value_of_half_position = free_block_table[free_block_entry_half_num];
+	free_block_value_of_one_quarter_position = free_block_table[free_block_entry_one_quarter_num];
+	free_block_value_of_three_quarter_position = free_block_table[free_block_entry_three_quarter_num];
 	for (i = 0; i < FREE_BLOCK_ENTRY_NUM; i ++)
 	{
 		list_init(&free_block_list[i]);
@@ -123,12 +137,13 @@ void * high_effiency_allocate(const int wanted_size)
 	if (!free_block_list[table_index].list_count)
 	{
 		allocated_ptr = heap + cur_free_ptr + sizeof(int);
-		*((int *)allocated_ptr - sizeof(int)) = approximated_size;
+		*((unsigned char *)allocated_ptr - sizeof(int)) = approximated_size;
 	}
 	else
 	{
 		get_list_elem_head(&list_mem, &free_block_list[table_index]);
 		allocated_ptr = (unsigned long long *)(list_mem->value + sizeof(int));
+		printf("%llx,allocated_ptr:%p\n", list_mem->value, allocated_ptr);
 		free(list_mem);
 		list_mem = NULL;
 	}
@@ -172,10 +187,15 @@ static int get_list_block(unsigned int block_size)
 	return 0;
 }
 
-static int get_approximated_size(const unsigned int wanted_size, unsigned* table_index)
+static unsigned long long get_approximated_size(const unsigned long long wanted_size, unsigned* table_index)
 {
 	int approximated_size = 0;
 	int i = 0;
+	unsigned int difference_result = 0;
+	int loop_start = 0, loop_end = 0;
+	const unsigned long long one_quarter_value = free_block_value_of_one_quarter_position;
+	const unsigned long long three_quarter_value = free_block_value_of_three_quarter_position;
+	const unsigned long long half_value = free_block_value_of_half_position;
 
 	if (wanted_size < FREE_BLOCK_MIN)
 	{
@@ -189,7 +209,17 @@ static int get_approximated_size(const unsigned int wanted_size, unsigned* table
 
 		return FREE_BLOCK_MAX;
 	}
-	for (i = 0; i < FREE_BLOCK_ENTRY_NUM - 1; i++)
+	//printf("wanted_size:%llu, front_quarter_value:%llu, last_quarter_value:%llu, half_value:%llu\n", wanted_size, one_quarter_value, three_quarter_value, half_value);
+	loop_start = (wanted_size < half_value)
+		? ((wanted_size < one_quarter_value) ? (0) : (free_block_entry_one_quarter_num))
+		: ((wanted_size < three_quarter_value) ? (free_block_entry_half_num) : (free_block_entry_three_quarter_num));
+	loop_end = (wanted_size < half_value)
+		? ((wanted_size < one_quarter_value) ? (free_block_entry_one_quarter_num) : (free_block_entry_half_num))
+		: ((wanted_size < three_quarter_value) ? (free_block_entry_three_quarter_num) : (FREE_BLOCK_ENTRY_NUM - 1));
+	//	mid = (wanted_size < free_block_table[mid])?():()
+	//if((wanted_size > free_block_table[mid])
+	//printf("loop_start:%d, loop_end:%d\n", loop_start, loop_end);
+	for (i = loop_start; i < loop_end; i++)
 	{
 		if((wanted_size > free_block_table[i]) && (wanted_size <= free_block_table[i + 1]))
 		{
