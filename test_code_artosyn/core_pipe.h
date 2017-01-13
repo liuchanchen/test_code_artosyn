@@ -20,6 +20,7 @@ extern int core_pipe();
 extern int core_pipe_read(int fd, void * buf, int len);
 extern int core_pipe_write(int fd, void * buf, int len);
 extern int test_core_pipe();
+extern int core_pipe_uninit(int fd);
 
 #endif // !CORE_PIPE_H
 

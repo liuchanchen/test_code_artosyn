@@ -116,9 +116,9 @@
     <ClCompile Include="core_mutex.c" />
     <ClCompile Include="core_pipe.c" />
     <ClCompile Include="function_call.c" />
-    <ClCompile Include="heap_intergrate.c" />
-    <ClCompile Include="heap_midware.c" />
+    <ClCompile Include="high_efficiency_allocate.c" />
     <ClCompile Include="list.c" />
+    <ClCompile Include="list_tranverse_optimization.c" />
     <ClCompile Include="main.c" />
     <ClCompile Include="malloc_list.c" />
     <ClCompile Include="mcci_driver.c" />
@@ -132,8 +132,8 @@
     <ClInclude Include="core_mutex.h" />
     <ClInclude Include="core_pipe.h" />
     <ClInclude Include="function_call.h" />
-    <ClInclude Include="heap_midware.h" />
     <ClInclude Include="list.h" />
+    <ClInclude Include="list_tranverse_optimization.h" />
     <ClInclude Include="malloc_list.h" />
     <ClInclude Include="mcci_driver.h" />
     <ClInclude Include="task_pool.h" />

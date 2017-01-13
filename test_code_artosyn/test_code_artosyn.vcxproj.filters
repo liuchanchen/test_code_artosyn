@@ -51,10 +51,10 @@
     <ClCompile Include="test_case.c">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="heap_midware.c">
+    <ClCompile Include="list_tranverse_optimization.c">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="heap_intergrate.c">
+    <ClCompile Include="high_efficiency_allocate.c">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
@@ -92,7 +92,7 @@
     <ClInclude Include="test_case.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="heap_midware.h">
+    <ClInclude Include="list_tranverse_optimization.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
