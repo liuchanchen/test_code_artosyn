@@ -1,17 +1,19 @@
 /*
- *综述：这个c文件及对应的头文件主要是用来测试多步长搜索的效率问题
+ *综述：这个c文件及对应的头文件主要是用来测试多步长搜索的效率问题,利用多步长搜索的前提是搜
+		索的条件必须是按照顺序进行排列的
  *方法：这个用于队列中的元素是顺序排列的，如果是顺序排列，则采用多步长进行搜索，然后再采用
  *		逐步缩小步长进行搜索。这个与二分法的区别在于，二分法必须事先知道队列的长度，并且能
  *		够快速的找到队列中间的那个元素，二这个方法则不需要
  *结果：1、从ceva的profile结果上看，1步长（搜索623次）为3步长的1.79倍
+ *		2、利用vs的profile工具来看，1步长占20%，3步长占32%
  */
 #include "list_tranverse_optimization.h"
 #include <stddef.h>
 #include <string.h>
 #include <stdio.h>
 
-#define LIST_MEM_TEST_NUM 500
-#define FIND_VALUE 323
+#define LIST_MEM_TEST_NUM 900
+#define FIND_VALUE 823
 
 typedef struct list_mem_t
 {
@@ -30,6 +32,8 @@ typedef struct list_t
 #define elem_iterate(list_elem) (list_elem = list_elem->before)
 #define find_condition_with_step_size_3(list, list_mem,cond_value) ((list_mem->before->before->before->value < cond_value) && ((tmp_list_mem->before->before->before != &(list->head))))
 #define elem_iterate_with_step_size_3(list_elem) (list_elem = list_elem->before->before->before)
+#define find_condition_with_step_size_4(list, list_mem,cond_value) ((list_mem->before->before->before->before->value < cond_value) && ((tmp_list_mem->before->before->before->before != &(list->head))))
+#define elem_iterate_with_step_size_4(list_elem) (list_elem = list_elem->before->before->before->before)
 
 static int optimizated_list_init(list_st * list);
 static int optimizated_list_insert(list_mem_st * list_mem, list_st * list);
@@ -44,7 +48,7 @@ static int optimizated_list_init(list_st * list)
 	list->rear.before = &list->head;
 	list->rear.after = NULL;
 	list->list_count = 0;
-	printf("&list->head:%p, &list->rear:%p\n", &list->head, &list->rear);
+	//printf("&list->head:%p, &list->rear:%p\n", &list->head, &list->rear);
 
 	return 0;
 }
@@ -84,6 +88,7 @@ int list_tranverse_optimization_test_code()
 		optimizated_list_insert(&list_mem[i], &list);
 	}
 	not_optimizated_tranverse(&list);
+	optimizated_tranverse(&list);
 
 	return 0;
 }
@@ -103,10 +108,10 @@ static int optimizated_tranverse(list_st* list)
 	}
 #else
 	tmp_list_mem = list->rear.before;
-	while (find_condition_with_step_size_3(list, tmp_list_mem, FIND_VALUE))
+	while (find_condition_with_step_size_4(list, tmp_list_mem, FIND_VALUE))
 	{
 		i++;
-		elem_iterate_with_step_size_3(tmp_list_mem);
+		elem_iterate_with_step_size_4(tmp_list_mem);
 	}
 	while (find_condition(list, tmp_list_mem, FIND_VALUE))
 	{
@@ -114,7 +119,7 @@ static int optimizated_tranverse(list_st* list)
 		elem_iterate(tmp_list_mem);
 	}
 #endif
-	printf("tranverse times:%d,tmp_list_mem->value:%llu\n", i, tmp_list_mem->value);
+	//printf("tranverse times:%d,tmp_list_mem->value:%llu\n", i, tmp_list_mem->value);
 
 	return 0;
 }
@@ -140,7 +145,7 @@ static int not_optimizated_tranverse(list_st * list)
 		elem_iterate(tmp_list_mem);
 	}
 #endif
-	printf("tranverse times:%d,tmp_list_mem->value:%llu\n", i, tmp_list_mem->value);
+	//printf("tranverse times:%d,tmp_list_mem->value:%llu\n", i, tmp_list_mem->value);
 
 	return 0;
 }

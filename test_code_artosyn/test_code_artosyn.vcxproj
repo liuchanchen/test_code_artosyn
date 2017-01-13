@@ -77,6 +77,9 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
     </ClCompile>
+    <Link>
+      <Profile>true</Profile>
+    </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -84,6 +87,9 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
     </ClCompile>
+    <Link>
+      <Profile>true</Profile>
+    </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -125,6 +131,7 @@
     <ClCompile Include="task_pool.c" />
     <ClCompile Include="test_case.c" />
     <ClCompile Include="test_colon_in_c_language.c" />
+    <ClCompile Include="test_local_reference.c" />
     <ClCompile Include="test_noload.c" />
   </ItemGroup>
   <ItemGroup>
@@ -139,6 +146,7 @@
     <ClInclude Include="task_pool.h" />
     <ClInclude Include="test_case.h" />
     <ClInclude Include="test_colon_in_c_language.h" />
+    <ClInclude Include="test_local_reference.h" />
     <ClInclude Include="test_noload.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

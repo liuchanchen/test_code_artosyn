@@ -57,6 +57,9 @@
     <ClCompile Include="high_efficiency_allocate.c">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="test_local_reference.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="malloc_list.h">
@@ -93,6 +96,9 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="list_tranverse_optimization.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="test_local_reference.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

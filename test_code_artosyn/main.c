@@ -1,3 +1,4 @@
+#include "list_tranverse_optimization.h"
 #include "high_effiency_allocate.h"
 #include "test_case.h"
 #include "algothrim_midware.h"
@@ -8,6 +9,7 @@
 #include "task_pool.h"
 #include "list.h"
 #include <stdio.h>
+#include "test_local_reference.h"
 
 static void func(void * para);
 
@@ -25,7 +27,7 @@ int main(int argc, char ** argv)
 	//test_core_pipe();
 	//test_function_call();
 	//test_list();
-	getchar();
+	//getchar();
 
 	return 0;
 }
@@ -39,7 +41,9 @@ void func(void* para)
 	unsigned int cnt = 0;
 	unsigned int value_temp = 0;
 
-	high_effiency_test_case();
+	compare_local_reference_test_case();
+//	list_tranverse_optimization_test_code();
+//	high_effiency_test_case();
 
 	printf("test func\n");
 }
